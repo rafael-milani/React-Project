@@ -1,28 +1,19 @@
-import { useState, useEffect } from "react";
-
+import { useState } from "react";
 const App2 = () => {
-    const [resourceType, setResourceType] = useState("posts");
-    useEffect(() => {
-        fetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
-        .then(response => response.json())
-        .then(json => console.log(json))
+  const [count, SetCount] = useState(0);
 
-    }, [resourceType]);
+  const incrementCount = () => {
+    SetCount((prevState) => prevState + 1);
+  };
+  return (
+    <>
+      <h1>Contador</h1>
 
-    
-    const changeResourceType = (resourceType) => {
-        setResourceType(resourceType);
-    };
-    return (
-        <div>
-            <h1>Resource Changer</h1>
-            <h2>{resourceType}</h2>
-            <div style={{ display: "flex", alignItems: "center" }}>
-                <button onClick={() => changeResourceType("posts")}>Posts</button>
-                <button onClick={() => changeResourceType("comments")}>Comments</button>
-                <button onClick={() => changeResourceType("todos")}>Todos</button>
-            </div>
-        </div>
-    );
+      <div>
+        <h1>{count}</h1>
+        <button onClick={incrementCount}>Contar</button>
+      </div>
+    </>
+  );
 };
-        export default App2;
+export default App2;

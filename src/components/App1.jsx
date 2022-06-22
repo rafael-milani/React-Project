@@ -1,19 +1,31 @@
-import { useState } from "react";
-const App1 = () => {
-  const [count, SetCount] = useState(0);
+import React, { useState } from "react";
+import Button from "./Button";
+import "./AddTask.css";
 
-  const incrementCount = () => {
-    SetCount((prevState) => prevState + 1);
+const App1 = ({ handleTaskAddition }) => {
+  const [inputData, setInputData] = useState("");
+
+  function handleInputChange(e) {
+    setInputData(e.target.value);
+  }
+  const handleAddTaskClick = () => {
+    handleTaskAddition(inputData);
+    setInputData("");
   };
   return (
-    <>
-      <h1>Contador</h1>
+    <div className="add-task-container">
+      <input
+        onChange={handleInputChange}
+        value={inputData}
+        ClassName="add-task-input"
+        type="text"
+      />
 
-      <div>
-        <h1>{count}</h1>
-        <button onClick={incrementCount}>Contar</button>
+      <div className="add-task-button-container">
+        <Button onClick={handleAddTaskClick}>Adicionar</Button>
       </div>
-    </>
+    </div>
   );
 };
+
 export default App1;

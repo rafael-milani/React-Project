@@ -1,19 +1,25 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const App3 = () => {
-  const [name, setName] = useState("");
-
-  const previousName = useRef();
-
+  const [resourceType, setResourceType] = useState("posts");
   useEffect(() => {
-    previousName.current = name;
-  }, [name]);
+    fetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+  }, [resourceType]);
 
+  const changeResourceType = (resourceType) => {
+    setResourceType(resourceType);
+  };
   return (
     <div>
-      <input value={name} onChange={(e) => setName(e.target.value)} />
-      <p>Hello! My name is {name}</p>
-      <p>And my name was {previousName.current}</p>
+      <h1>Resource Changer</h1>
+      <h2>{resourceType}</h2>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <button onClick={() => changeResourceType("posts")}>Posts</button>
+        <button onClick={() => changeResourceType("comments")}>Comments</button>
+        <button onClick={() => changeResourceType("todos")}>Todos</button>
+      </div>
     </div>
   );
 };
